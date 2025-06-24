@@ -11,7 +11,7 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class MateriaService {
-  private apiUrl = `${environment.apiUrl}/materias`;
+  private apiUrl = `${environment.apiUrl}/Materias`;
 
   constructor(private http: HttpClient) {}
 

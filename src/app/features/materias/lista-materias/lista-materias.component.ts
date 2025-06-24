@@ -35,8 +35,8 @@ export class ListaMateriasComponent implements OnInit {
   loadMaterias(): void {
     this.materiaService.getAll().subscribe({
       next: (response) => {
-        if (response.success) {
-          this.materias = response.data || [];
+        if (response.exito) {
+          this.materias = response.resultado || [];
         }
       },
       error: (error) => console.error('Error loading materias:', error),

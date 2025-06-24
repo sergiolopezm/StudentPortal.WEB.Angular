@@ -16,7 +16,7 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly BASE_URL = 'https://localhost:7195/api';
+  private readonly BASE_URL = `${environment.apiUrl}/Auth`;
   private currentUserSubject = new BehaviorSubject<UsuarioPerfilDto | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -28,7 +28,7 @@ export class AuthService {
     loginDto.ip = '127.0.0.1';
     
     return this.http.post<{ exito: boolean; mensaje: string; resultado?: TokenDto }>(
-      `${this.BASE_URL}/Auth/login`, loginDto)
+      `${this.BASE_URL}/login`, loginDto)
       .pipe(
         tap(response => {
           console.log('Auth service response:', response);
@@ -41,12 +41,12 @@ export class AuthService {
 
   registerComplete(registroDto: UsuarioRegistroCompletoDto): Observable<{ exito: boolean; mensaje: string; resultado?: any }> {
     return this.http.post<{ exito: boolean; mensaje: string; resultado?: any }>(
-      `${this.BASE_URL}/Auth/registroCompleto`, registroDto);
+      `${this.BASE_URL}/registroCompleto`, registroDto);
   }
 
   getProfile(): Observable<{ exito: boolean; mensaje: string; resultado?: UsuarioPerfilDto }> {
     return this.http.get<{ exito: boolean; mensaje: string; resultado?: UsuarioPerfilDto }>(
-      `${this.BASE_URL}/Auth/perfil`)
+      `${this.BASE_URL}/perfil`)
       .pipe(
         tap(response => {
           if (response.exito && response.resultado) {
@@ -58,7 +58,7 @@ export class AuthService {
 
   logout(): Observable<{ exito: boolean; mensaje: string }> {
     return this.http.post<{ exito: boolean; mensaje: string }>(
-      `${this.BASE_URL}/Auth/logout`, {})
+      `${this.BASE_URL}/logout`, {})
       .pipe(
         tap(() => {
           this.clearSession();

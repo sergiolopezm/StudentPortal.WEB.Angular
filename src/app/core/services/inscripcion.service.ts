@@ -11,7 +11,7 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class InscripcionService {
-  private apiUrl = `${environment.apiUrl}/inscripciones`;
+  private apiUrl = `${environment.apiUrl}/Inscripciones`;
 
   constructor(private http: HttpClient) {}
 

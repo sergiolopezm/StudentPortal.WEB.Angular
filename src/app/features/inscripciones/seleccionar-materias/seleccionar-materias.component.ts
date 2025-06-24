@@ -66,13 +66,13 @@ export class SeleccionarMateriasComponent implements OnInit {
     if (!currentUser) return;
 
     const estudiantesResult = await this.estudianteService.getAll().toPromise();
-    if (estudiantesResult?.success) {
-      this.estudiante = estudiantesResult.data?.find(e => e.usuarioId === currentUser.id) || null;
+    if (estudiantesResult?.exito) {
+      this.estudiante = estudiantesResult.resultado?.find(e => e.usuarioId === currentUser.id) || null;
       
       if (this.estudiante) {
         const inscripcionesResult = await this.inscripcionService.getByEstudiante(this.estudiante.id).toPromise();
-        if (inscripcionesResult?.success) {
-          this.materiasInscritas = inscripcionesResult.data?.map(i => i.materiaId) || [];
+        if (inscripcionesResult?.exito) {
+          this.materiasInscritas = inscripcionesResult.resultado?.map(i => i.materiaId) || [];
         }
       }
     }
@@ -80,8 +80,8 @@ export class SeleccionarMateriasComponent implements OnInit {
 
   private async loadMaterias(): Promise<void> {
     const materiasResult = await this.materiaService.getAll().toPromise();
-    if (materiasResult?.success) {
-      this.materias = materiasResult.data || [];
+    if (materiasResult?.exito) {
+      this.materias = materiasResult.resultado || [];
     }
   }
 
@@ -102,12 +102,12 @@ export class SeleccionarMateriasComponent implements OnInit {
 
     this.inscripcionService.inscribir(inscripcion).subscribe({
       next: (response) => {
-        if (response.success) {
+        if (response.exito) {
           this.snackBar.open('Materia inscrita correctamente', 'Cerrar', { duration: 3000 });
           this.materiasInscritas.push(materiaId);
           this.loadEstudianteData();
         } else {
-          this.snackBar.open(response.message, 'Cerrar', { duration: 5000 });
+          this.snackBar.open(response.mensaje, 'Cerrar', { duration: 5000 });
         }
       },
       error: (error) => {

@@ -65,8 +65,8 @@ export class RegisterComponent implements OnInit {
   private loadProgramas(): void {
     this.programaService.getAll().subscribe({
       next: (response) => {
-        if (response.success) {
-          this.programas = response.data || [];
+        if (response.exito) {
+          this.programas = response.resultado || [];
         }
       },
       error: (error) => console.error('Error loading programs:', error)

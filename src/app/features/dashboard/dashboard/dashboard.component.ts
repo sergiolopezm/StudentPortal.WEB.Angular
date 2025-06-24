@@ -59,13 +59,13 @@ export class DashboardComponent implements OnInit {
   private async loadEstudianteData(): Promise<void> {
     try {
       const estudiantesResult = await this.estudianteService.getAll().toPromise();
-      if (estudiantesResult?.success && estudiantesResult.data) {
-        this.estudiante = estudiantesResult.data.find(e => e.usuarioId === this.currentUser!.id) || null;
+      if (estudiantesResult?.exito && estudiantesResult.resultado) {
+        this.estudiante = estudiantesResult.resultado.find(e => e.usuarioId === this.currentUser!.id) || null;
         
         if (this.estudiante) {
           const inscripcionesResult = await this.inscripcionService.getByEstudiante(this.estudiante.id).toPromise();
-          if (inscripcionesResult?.success) {
-            this.inscripciones = inscripcionesResult.data || [];
+          if (inscripcionesResult?.exito) {
+            this.inscripciones = inscripcionesResult.resultado || [];
           }
         }
       }

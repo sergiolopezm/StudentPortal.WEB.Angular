@@ -53,8 +53,8 @@ export class MisClasesComponent implements OnInit {
       if (!currentUser) return;
 
       const estudiantesResult = await this.estudianteService.getAll().toPromise();
-      if (estudiantesResult?.success) {
-        this.estudiante = estudiantesResult.data?.find(e => e.usuarioId === currentUser.id) || null;
+      if (estudiantesResult?.exito) {
+        this.estudiante = estudiantesResult.resultado?.find(e => e.usuarioId === currentUser.id) || null;
         
         if (this.estudiante) {
           await this.loadInscripciones();
@@ -72,8 +72,8 @@ export class MisClasesComponent implements OnInit {
     if (!this.estudiante) return;
     
     const result = await this.inscripcionService.getByEstudiante(this.estudiante.id).toPromise();
-    if (result?.success) {
-      this.inscripciones = result.data || [];
+    if (result?.exito) {
+      this.inscripciones = result.resultado || [];
     }
   }
 
@@ -81,19 +81,19 @@ export class MisClasesComponent implements OnInit {
     if (!this.estudiante) return;
     
     const result = await this.estudianteService.getCompaneros(this.estudiante.id).toPromise();
-    if (result?.success) {
-      this.companeros = result.data || [];
+    if (result?.exito) {
+      this.companeros = result.resultado || [];
     }
   }
 
   cancelarInscripcion(inscripcionId: number): void {
     this.inscripcionService.cancelar(inscripcionId).subscribe({
       next: (response) => {
-        if (response.success) {
+        if (response.exito) {
           this.snackBar.open('Inscripción cancelada', 'Cerrar', { duration: 3000 });
           this.loadInscripciones();
         } else {
-          this.snackBar.open(response.message, 'Cerrar', { duration: 5000 });
+          this.snackBar.open(response.mensaje, 'Cerrar', { duration: 5000 });
         }
       },
       error: () => {

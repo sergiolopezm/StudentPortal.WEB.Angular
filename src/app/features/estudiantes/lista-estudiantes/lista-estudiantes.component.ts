@@ -47,8 +47,8 @@ export class ListaEstudiantesComponent implements OnInit {
     this.loading = true;
     this.estudianteService.getAll().subscribe({
       next: (response) => {
-        if (response.success) {
-          this.dataSource.data = response.data || [];
+        if (response.exito) {
+          this.dataSource.data = response.resultado || [];
           this.dataSource.paginator = this.paginator;
         }
       },

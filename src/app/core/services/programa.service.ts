@@ -11,7 +11,7 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class ProgramaService {
-  private apiUrl = `${environment.apiUrl}/programas`;
+  private apiUrl = `${environment.apiUrl}/Programas`;
 
   constructor(private http: HttpClient) {}
 
