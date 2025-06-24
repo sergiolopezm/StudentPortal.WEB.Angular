@@ -69,11 +69,11 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
-          if (response.success) {
+          if (response.exito) {
             this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
             this.router.navigate([this.returnUrl]);
           } else {
-            this.showError(response.message);
+            this.showError(response.mensaje);
           }
         },
         error: (error) => {

@@ -50,11 +50,11 @@ export class RegisterComponent implements OnInit {
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      rolId: [2, [Validators.required]], // 2 = Estudiante por defecto
+      rolId: [3, [Validators.required]], // 3 = Estudiante por defecto
       identificacion: ['', [Validators.required]],
       telefono: [''],
       carrera: [''],
-      programaId: ['', [Validators.required]]
+      programaId: [1, [Validators.required]]
     });
   }
 
@@ -100,11 +100,11 @@ export class RegisterComponent implements OnInit {
 
       this.authService.registerComplete(registerData).subscribe({
         next: (response) => {
-          if (response.success) {
+          if (response.exito) {
             this.snackBar.open('Usuario registrado exitosamente', 'Cerrar', { duration: 3000 });
             this.router.navigate(['/login']);
           } else {
-            this.snackBar.open(response.message, 'Cerrar', { duration: 5000 });
+            this.snackBar.open(response.mensaje, 'Cerrar', { duration: 5000 });
           }
         },
         error: (error) => {
