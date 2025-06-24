@@ -1,10 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
+import { authInterceptor } from './app/core/interceptors/auth.interceptor';
 
 // Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,13 +24,8 @@ import { routes } from './app/app.routes';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
     importProvidersFrom(
       MatToolbarModule,
       MatButtonModule,
