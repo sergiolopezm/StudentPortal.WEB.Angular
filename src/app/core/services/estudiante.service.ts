@@ -12,7 +12,7 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class EstudianteService {
-  private apiUrl = `${environment.apiUrl}/Estudiantes`;
+  private apiUrl = `${environment.apiUrl}/Estudiante`;
 
   constructor(private http: HttpClient) {}
 
