@@ -1,0 +1,110 @@
+/* Mejoras globales para toda la aplicación */
+@import '@angular/material/theming';
+
+// Definir una paleta de colores personalizada
+$primary-color: #3f51b5;
+$accent-color: #ff4081;
+$background: #f5f7fa;
+$card-bg: #ffffff;
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  background-color: $background;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Mejoras para tarjetas */
+.mat-card {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .mat-card-header {
+    padding: 16px 16px 0;
+    
+    .mat-card-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+  }
+  
+  .mat-card-content {
+    padding: 16px;
+  }
+}
+
+/* Contenedores principales */
+.dashboard-container,
+.register-container,
+.materias-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilos para las tablas */
+.mat-table {
+  width: 100%;
+  background-color: $card-bg;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  
+  th.mat-header-cell {
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(63, 81, 181, 0.05);
+    padding: 12px;
+  }
+  
+  td.mat-cell {
+    padding: 12px;
+  }
+  
+  tr.mat-row:hover {
+    background-color: rgba(63, 81, 181, 0.04);
+  }
+}
+
+/* Mejoras para formularios */
+.mat-form-field {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Botones más atractivos */
+.mat-raised-button {
+  padding: 0 24px;
+  height: 42px;
+  border-radius: 21px;
+  font-weight: 500;
+  
+  &.mat-primary {
+    background-color: $primary-color;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+  
+  &.mat-accent {
+    background-color: $accent-color;
+    
+    &:hover {
+      background-color: darken($accent-color, 10%);
+    }
+  }
+}
