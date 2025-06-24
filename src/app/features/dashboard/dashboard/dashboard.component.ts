@@ -46,6 +46,17 @@ export class DashboardComponent implements OnInit {
     this.loadUserData();
   }
 
+  getCurrentDateTime(): string {
+    return new Date().toLocaleString('es-CO', {
+      timeZone: 'America/Bogota',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
   private async loadUserData(): Promise<void> {
     this.currentUser = this.authService.getCurrentUser();
     
@@ -91,4 +102,6 @@ export class DashboardComponent implements OnInit {
       default: return 'status-default';
     }
   }
+
 }
+

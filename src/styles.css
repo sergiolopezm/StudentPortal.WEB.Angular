@@ -1,93 +1,176 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bootstrap y estilos globales */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 html, body { 
   height: 100%; 
   margin: 0; 
   font-family: 'Roboto', "Helvetica Neue", sans-serif; 
+  background-color: #f8f9fa;
 }
 
-/* Material Design y Bootstrap integration */
+/* Estilos globales para la aplicación */
 * {
   box-sizing: border-box;
 }
 
-/* Mejoras para los botones */
-.mat-raised-button, .mat-flat-button, .mat-stroked-button {
-  min-width: 64px;
-  line-height: 36px;
-  padding: 0 16px;
-  border-radius: 4px;
+/* Cards mejoradas */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Mejoras para las tarjetas */
-.mat-card {
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 16px;
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Mejoras para las tablas */
-.mat-table {
-  width: 100%;
-}
-
-.mat-header-cell {
+.card-header {
+  border-radius: 12px 12px 0 0 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   font-weight: 600;
-  color: rgba(0,0,0,0.87);
 }
 
-/* Mejoras para formularios */
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-/* Chips de estado */
-.mat-chip {
-  border-radius: 16px;
-  font-size: 12px;
+/* Botones mejorados */
+.btn {
+  border-radius: 8px;
   font-weight: 500;
-  padding: 4px 12px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
 }
 
-/* Espaciado y layout */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+.btn-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
 }
 
-.full-width {
-  width: 100%;
+.btn-primary:hover {
+  background: linear-gradient(45deg, #0056b3, #004085);
+  transform: translateY(-1px);
 }
 
-/* Estados de carga */
+/* Tablas mejoradas */
+.table {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Alertas mejoradas */
+.alert {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Formularios */
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Layout principal */
+.container-fluid {
+  padding: 0;
+}
+
+/* Navegación lateral */
+.mat-sidenav {
+  width: 250px !important;
+  background-color: #ffffff;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-list-item {
+  margin: 4px 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.mat-list-item:hover {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.mat-list-item.active {
+  background-color: rgba(0, 123, 255, 0.2) !important;
+  color: #007bff;
+}
+
+/* Toolbar */
+.mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Badges y chips */
+.badge {
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Loading spinner */
 .loading-spinner {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 200px;
+  flex-direction: column;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 8px;
+  .container, .container-fluid {
+    padding: 0 1rem;
   }
   
-  .mat-card {
-    margin: 8px 0;
+  .card {
+    margin-bottom: 1rem;
   }
+  
+  .table-responsive {
+    border-radius: 8px;
+  }
+}
+
+/* Utilidades */
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Animaciones suaves */
-* {
-  transition: all 0.2s ease-in-out;
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
 }
 
-/* Fix para Angular Material con temas */
-.mat-app-background {
-  background-color: #fafafa;
-  color: rgba(0,0,0,0.87);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
