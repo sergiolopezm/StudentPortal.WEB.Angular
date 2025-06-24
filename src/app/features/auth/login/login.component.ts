@@ -69,14 +69,17 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
+          console.log('Login response:', response);
           if (response.exito) {
             this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
-            this.router.navigate([this.returnUrl]);
+            // Forzar navegación
+            window.location.href = '/dashboard';
           } else {
             this.showError(response.mensaje);
           }
         },
         error: (error) => {
+          console.error('Login error:', error);
           this.showError('Error de conexión. Verifique sus credenciales.');
         },
         complete: () => {

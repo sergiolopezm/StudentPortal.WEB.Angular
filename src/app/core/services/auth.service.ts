@@ -16,7 +16,6 @@ import { ResponseDto } from '../../models/common/response.dto';
   providedIn: 'root'
 })
 export class AuthService {
-  // URL fija para evitar cualquier manipulación
   private readonly BASE_URL = 'https://localhost:7195/api';
   private currentUserSubject = new BehaviorSubject<UsuarioPerfilDto | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -27,11 +26,12 @@ export class AuthService {
 
   login(loginDto: UsuarioLoginDto): Observable<{ exito: boolean; mensaje: string; resultado?: TokenDto }> {
     loginDto.ip = '127.0.0.1';
-    // Usar URL literal para garantizar el formato correcto
+    
     return this.http.post<{ exito: boolean; mensaje: string; resultado?: TokenDto }>(
-      'https://localhost:7195/api/Auth/login', loginDto)
+      `${this.BASE_URL}/Auth/login`, loginDto)
       .pipe(
         tap(response => {
+          console.log('Auth service response:', response);
           if (response.exito && response.resultado) {
             this.setSession(response.resultado);
           }
@@ -41,12 +41,12 @@ export class AuthService {
 
   registerComplete(registroDto: UsuarioRegistroCompletoDto): Observable<{ exito: boolean; mensaje: string; resultado?: any }> {
     return this.http.post<{ exito: boolean; mensaje: string; resultado?: any }>(
-      'https://localhost:7195/api/Auth/registroCompleto', registroDto);
+      `${this.BASE_URL}/Auth/registroCompleto`, registroDto);
   }
 
   getProfile(): Observable<{ exito: boolean; mensaje: string; resultado?: UsuarioPerfilDto }> {
     return this.http.get<{ exito: boolean; mensaje: string; resultado?: UsuarioPerfilDto }>(
-      'https://localhost:7195/api/Auth/perfil')
+      `${this.BASE_URL}/Auth/perfil`)
       .pipe(
         tap(response => {
           if (response.exito && response.resultado) {
@@ -58,7 +58,7 @@ export class AuthService {
 
   logout(): Observable<{ exito: boolean; mensaje: string }> {
     return this.http.post<{ exito: boolean; mensaje: string }>(
-      'https://localhost:7195/api/Auth/logout', {})
+      `${this.BASE_URL}/Auth/logout`, {})
       .pipe(
         tap(() => {
           this.clearSession();
@@ -90,9 +90,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  private setSession(tokenData: TokenDto): void {
+  private setSession(tokenData: any): void {
+    console.log('Setting session with:', tokenData);
     localStorage.setItem('token', tokenData.token);
-    localStorage.setItem('token_expiration', tokenData.expiracion.toString());
+    
+    // Manejar la fecha de expiración que puede venir como string
+    const expiracion = tokenData.expiracion ? new Date(tokenData.expiracion).toISOString() : new Date(Date.now() + 24*60*60*1000).toISOString();
+    localStorage.setItem('token_expiration', expiracion);
     localStorage.setItem('user_data', JSON.stringify(tokenData.usuario));
     this.currentUserSubject.next(tokenData.usuario);
   }
