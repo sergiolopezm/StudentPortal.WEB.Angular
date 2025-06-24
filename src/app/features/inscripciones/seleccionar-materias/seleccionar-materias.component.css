@@ -1,0 +1,39 @@
+.materias-container {
+    padding: 20px;
+  }
+  
+  .info-card, .materias-card, .warning-card, .empty-card {
+    margin-bottom: 20px;
+  }
+  
+  .warning-card {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+  }
+  
+  .warning-card mat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .empty-card {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+  }
+  
+  .empty-card mat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  mat-chip-listbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }

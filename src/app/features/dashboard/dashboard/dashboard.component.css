@@ -1,0 +1,54 @@
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .welcome-section {
+    margin-bottom: 24px;
+  }
+  
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .info-card, .action-card {
+    height: fit-content;
+  }
+  
+  .inscripciones-card {
+    margin-top: 24px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .status-inscrito {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .status-cancelado {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .status-completado {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .status-default {
+    background-color: #9e9e9e;
+    color: white;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }

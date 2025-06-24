@@ -1,1 +1,77 @@
-<p>seleccionar-materias works!</p>
+<div class="materias-container">
+    <mat-card class="info-card" *ngIf="estudiante">
+      <mat-card-header>
+        <mat-card-title>Información del Estudiante</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Nombre:</strong> {{estudiante.nombreCompleto}}</p>
+        <p><strong>Programa:</strong> {{estudiante.programa}}</p>
+        <p><strong>Materias Inscritas:</strong> {{estudiante.materiasInscritasCount}}/3</p>
+        <p><strong>Créditos Actuales:</strong> {{estudiante.creditosActuales}}</p>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card *ngIf="estudiante && estudiante.materiasInscritasCount >= 3" class="warning-card">
+      <mat-card-content>
+        <mat-icon>warning</mat-icon>
+        <span>Ya tienes el máximo de materias inscritas (3). No puedes inscribir más materias.</span>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card *ngIf="materiasDisponibles.length > 0 && estudiante && estudiante.materiasInscritasCount < 3" class="materias-card">
+      <mat-card-header>
+        <mat-card-title>Materias Disponibles</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="materiasDisponibles" class="full-width">
+          
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef>Código</th>
+            <td mat-cell *matCellDef="let materia">{{materia.codigo}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let materia">{{materia.nombre}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="creditos">
+            <th mat-header-cell *matHeaderCellDef>Créditos</th>
+            <td mat-cell *matCellDef="let materia">{{materia.creditos}}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="profesores">
+            <th mat-header-cell *matHeaderCellDef>Profesores</th>
+            <td mat-cell *matCellDef="let materia">
+              <mat-chip-listbox *ngIf="materia.profesores && materia.profesores.length > 0">
+                <mat-chip *ngFor="let profesor of materia.profesores">{{profesor}}</mat-chip>
+              </mat-chip-listbox>
+              <span *ngIf="!materia.profesores || materia.profesores.length === 0">Sin profesores asignados</span>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef>Acción</th>
+            <td mat-cell *matCellDef="let materia">
+              <button mat-raised-button color="primary" 
+                      (click)="inscribirMateria(materia.id)" 
+                      [disabled]="inscribiendo">
+                <mat-icon>add</mat-icon>
+                Inscribir
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card *ngIf="materiasDisponibles.length === 0 && !loading" class="empty-card">
+      <mat-card-content>
+        <mat-icon>info</mat-icon>
+        <span>No hay materias disponibles para inscribir.</span>
+      </mat-card-content>
+    </mat-card>
+  </div>

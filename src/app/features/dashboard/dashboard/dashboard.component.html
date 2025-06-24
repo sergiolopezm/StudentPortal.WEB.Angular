@@ -1,1 +1,115 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="welcome-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Bienvenido, {{currentUser?.nombreCompleto}}</mat-card-title>
+          <mat-card-subtitle>{{getWelcomeMessage()}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  
+    <!-- Panel de Estudiante -->
+    <div *ngIf="currentUser?.rol === 'Estudiante'" class="student-panel">
+      <div class="cards-row">
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>school</mat-icon>
+            <mat-card-title>Mi Información</mat-card-title>
+          </mat-card-header>
+          <mat-card-content *ngIf="estudiante">
+            <p><strong>Programa:</strong> {{estudiante.programa}}</p>
+            <p><strong>Materias Inscritas:</strong> {{estudiante.materiasInscritasCount}}/3</p>
+            <p><strong>Créditos Actuales:</strong> {{estudiante.creditosActuales}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a mat-button routerLink="/inscripciones/materias" *ngIf="estudiante && estudiante.materiasInscritasCount < 3">
+              <mat-icon>add_circle</mat-icon> Inscribir Materias
+            </a>
+            <a mat-button routerLink="/inscripciones/clases">
+              <mat-icon>people</mat-icon> Ver Mis Clases
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+  
+      <mat-card class="inscripciones-card" *ngIf="inscripciones.length > 0">
+        <mat-card-header>
+          <mat-card-title>Mis Materias Inscritas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="inscripciones" class="full-width">
+            <ng-container matColumnDef="materia">
+              <th mat-header-cell *matHeaderCellDef>Materia</th>
+              <td mat-cell *matCellDef="let inscripcion">{{inscripcion.materiaCodigoyNombre}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="creditos">
+              <th mat-header-cell *matHeaderCellDef>Créditos</th>
+              <td mat-cell *matCellDef="let inscripcion">{{inscripcion.credMateria}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let inscripcion">
+                <mat-chip [ngClass]="getStatusClass(inscripcion.estado)">{{inscripcion.estado}}</mat-chip>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="calificacion">
+              <th mat-header-cell *matHeaderCellDef>Calificación</th>
+              <td mat-cell *matCellDef="let inscripcion">
+                {{inscripcion.calificacion || 'Sin calificar'}}
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Panel de Admin -->
+    <div *ngIf="currentUser?.rol === 'Admin'" class="admin-panel">
+      <div class="cards-row">
+        <mat-card class="action-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar color="primary">people</mat-icon>
+            <mat-card-title>Gestión de Estudiantes</mat-card-title>
+            <mat-card-subtitle>Administre los estudiantes del sistema</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <a mat-raised-button color="primary" routerLink="/estudiantes">
+              <mat-icon>arrow_forward</mat-icon> Ir a Estudiantes
+            </a>
+          </mat-card-actions>
+        </mat-card>
+  
+        <mat-card class="action-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar color="accent">book</mat-icon>
+            <mat-card-title>Gestión de Materias</mat-card-title>
+            <mat-card-subtitle>Administre las materias disponibles</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <a mat-raised-button color="accent" routerLink="/materias">
+              <mat-icon>arrow_forward</mat-icon> Ir a Materias
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+  
+      <mat-card class="action-card full-width">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="warn">person_add</mat-icon>
+          <mat-card-title>Registrar Nuevo Usuario</mat-card-title>
+          <mat-card-subtitle>Añada nuevos estudiantes o profesores al sistema</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-raised-button color="warn" routerLink="/register">
+            <mat-icon>add_circle</mat-icon> Crear Usuario
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>

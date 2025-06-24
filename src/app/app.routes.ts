@@ -24,18 +24,24 @@ export const routes: Routes = [
     path: 'estudiantes',
     canActivate: [AuthGuard],
     data: { roles: ['Admin'] },
-    loadChildren: () => import('./features/estudiantes/estudiantes.routes').then(m => m.routes)
+    loadComponent: () => import('./features/estudiantes/lista-estudiantes/lista-estudiantes.component').then(m => m.ListaEstudiantesComponent)
   },
   {
     path: 'materias',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./features/materias/materias.routes').then(m => m.routes)
+    loadComponent: () => import('./features/materias/lista-materias/lista-materias.component').then(m => m.ListaMateriasComponent)
   },
   {
-    path: 'inscripciones',
+    path: 'inscripciones/materias',
     canActivate: [AuthGuard],
     data: { roles: ['Estudiante'] },
-    loadChildren: () => import('./features/inscripciones/inscripciones.routes').then(m => m.routes)
+    loadComponent: () => import('./features/inscripciones/seleccionar-materias/seleccionar-materias.component').then(m => m.SeleccionarMateriasComponent)
+  },
+  {
+    path: 'inscripciones/clases',
+    canActivate: [AuthGuard],
+    data: { roles: ['Estudiante'] },
+    loadComponent: () => import('./features/inscripciones/mis-clases/mis-clases.component').then(m => m.MisClasesComponent)
   },
   {
     path: '**',
