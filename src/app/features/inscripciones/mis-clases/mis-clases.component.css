@@ -1,0 +1,48 @@
+.clases-container {
+    padding: 20px;
+  }
+  
+  .info-card, .inscripciones-card, .companeros-card, .empty-card {
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .status-inscrito {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .status-cancelado {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .status-completado {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .materia-companeros {
+    margin-bottom: 16px;
+  }
+  
+  .companeros-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .empty-card {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+  }
+  
+  .empty-card mat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }

@@ -1,0 +1,19 @@
+.materias-container {
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .descripcion {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 4px;
+  }
+  
+  mat-chip-listbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
