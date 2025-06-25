@@ -1,4 +1,7 @@
-.app-container {
+/* ==================================
+   Estilos de Layout Principal (Material-like)
+   ================================== */
+   .app-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -26,6 +29,15 @@
     flex: 1 1 auto;
   }
   
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* ==================================
+     Estilos de Navegación Sidenav (Material)
+     ================================== */
   mat-nav-list a {
     display: flex;
     align-items: center;
@@ -43,146 +55,175 @@
     background-color: rgba(63,81,181,0.1);
     color: #3f51b5;
   }
-  .nav-link {
-    color: #6c757d;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+  
+  /* ==================================
+     Estilos de Sidebar (Layout Personalizado/Final)
+     ================================== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 600;
+    width: 250px;
+    background-color: #343a40;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Propiedad fusionada de una def. anterior */
+    border-right: 1px solid #e9ecef; /* Propiedad fusionada de una def. anterior */
   }
   
-  .nav-link:hover {
-    background-color: rgba(13, 110, 253, 0.1);
-    color: #0d6efd;
+  .sidebar h5 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
   
-  .nav-link.active {
+  .sidebar nav {
+    padding: 1rem 0;
+  }
+  
+  .sidebar .nav-item {
+    margin: 2px 8px;
+  }
+  
+  /* Nota: Se unificaron múltiples definiciones de .nav-link en las siguientes reglas */
+  .sidebar .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #adb5bd;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .sidebar .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebar .nav-link.active {
+    color: #fff;
     background-color: #0d6efd;
+  }
+  
+  /* Estilos para nav-pills (si se usan fuera del sidebar principal) */
+  .nav-pills .nav-link {
+    color: #6c757d;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .nav-pills .nav-link:hover {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(13, 110, 253, 0.05));
+    color: #0d6efd;
+    transform: translateX(5px);
+  }
+  
+  .nav-pills .nav-link.active {
+    background: linear-gradient(135deg, #0d6efd, #0056b3);
     color: white;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+  }
+  
+  .nav-pills .nav-link i {
+    width: 20px;
+    text-align: center;
+  }
+  
+  
+  /* ==================================
+     Estilos de la Barra de Navegación Superior (Navbar)
+     ================================== */
+  .navbar {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .navbar-brand {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+  }
+  
+  .top-row {
+    position: sticky;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    height: 3.5rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  /* ==================================
+     Estilos de Dropdown y Avatares
+     ================================== */
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 0.5rem;
+  }
+  
+  .dropdown-item {
+    padding: 0.75rem 1.25rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
   }
   
   .dropdown-toggle::after {
     margin-left: 0.5rem;
   }
   
-  .bg-light {
-    background-color: #f8f9fa !important;
+  .avatar-sm {
+    width: 2rem;
+    height: 2rem;
   }
-  /* Sidebar styles */
-.sidebar {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #e9ecef;
-}
-
-.sidebar h5 {
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-.nav-pills .nav-link {
-  color: #6c757d;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.nav-pills .nav-link:hover {
-  background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(13, 110, 253, 0.05));
-  color: #0d6efd;
-  transform: translateX(5px);
-}
-
-.nav-pills .nav-link.active {
-  background: linear-gradient(135deg, #0d6efd, #0056b3);
-  color: white;
-  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
-}
-
-.nav-pills .nav-link i {
-  width: 20px;
-  text-align: center;
-}
-
-/* Navbar styles */
-.navbar {
-  background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: -0.025em;
-}
-
-.dropdown-menu {
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  margin-top: 0.5rem;
-}
-
-.dropdown-item {
-  padding: 0.75rem 1.25rem;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-item:hover {
-  background-color: #f8f9fa;
-}
-
-/* Main content background */
-main.bg-light {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 25%, #f8f9fa 100%) !important;
-  min-height: calc(100vh - 72px);
-}
-
-/* General improvements */
-.d-flex.vh-100 {
-  background-color: #f8f9fa;
-}
-/* Navbar styles */
-.navbar {
-  background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: -0.025em;
-}
-
-.dropdown-menu {
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  margin-top: 0.5rem;
-}
-
-.dropdown-item {
-  padding: 0.75rem 1.25rem;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-item:hover {
-  background-color: #f8f9fa;
-}
-
-/* Main content background */
-main.bg-light {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 25%, #f8f9fa 100%) !important;
-  overflow-y: auto;
-}
-
-.avatar-sm {
-  width: 2rem;
-  height: 2rem;
-}
+  
+  /* ==================================
+     Estilos de Contenido Principal y Footer
+     ================================== */
+  main {
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  main.bg-light {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 25%, #f8f9fa 100%) !important;
+    min-height: calc(100vh - 72px); /* Fusionado de varias definiciones */
+    overflow-y: auto; /* Fusionado de varias definiciones */
+  }
+  
+  .content {
+    flex: 1;
+    background-color: #f8f9fa;
+  }
+  
+  .footer {
+    background-color: #fff;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto;
+  }
+  
+  /* ==================================
+     Estilos Responsivos
+     ================================== */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+    
+    main {
+      margin-left: 0;
+    }
+  }

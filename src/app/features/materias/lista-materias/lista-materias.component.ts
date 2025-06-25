@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 import { MateriaService } from '../../../core/services/materia.service';
 import { MateriaDto } from '../../../models/academico/materia.dto';
@@ -13,10 +10,7 @@ import { MateriaDto } from '../../../models/academico/materia.dto';
   standalone: true,
   imports: [
     CommonModule,
-    MatTableModule,
-    MatCardModule,
-    MatChipsModule,
-    MatIconModule
+    FormsModule
   ],
   templateUrl: './lista-materias.component.html',
   styleUrls: ['./lista-materias.component.css']
@@ -24,7 +18,7 @@ import { MateriaDto } from '../../../models/academico/materia.dto';
 export class ListaMateriasComponent implements OnInit {
   materias: MateriaDto[] = [];
   loading = true;
-  displayedColumns: string[] = ['codigo', 'nombre', 'creditos', 'profesores', 'inscripciones'];
+  searchTerm = '';
 
   constructor(private materiaService: MateriaService) {}
 
@@ -42,5 +36,16 @@ export class ListaMateriasComponent implements OnInit {
       error: (error) => console.error('Error loading materias:', error),
       complete: () => this.loading = false
     });
+  }
+
+  SearchMaterias(): void {
+    // Implementar filtro si es necesario
+  }
+
+  // lista-materias.component.ts
+  truncar(descr = '', max = 50, tail = '...'): string {
+    if (descr.length <= max) return descr;
+    // ojo con caracteres multi-byte: usar Intl.Segmenter si te importa
+    return descr.substring(0, max - tail.length) + tail;
   }
 }

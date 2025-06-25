@@ -1,34 +1,37 @@
-<div class="vh-100 d-flex flex-column" *ngIf="isAuthenticated">
+<div class="page" *ngIf="isAuthenticated">
   <!-- Top navbar only -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">
-        <i class="bi bi-mortarboard me-2"></i>Student Portal
-      </span>
-      <div class="navbar-nav ms-auto">
-        <div class="nav-item dropdown" *ngIf="currentUser">
-          <a class="nav-link dropdown-toggle text-white d-flex align-items-center" 
-             href="#" role="button" data-bs-toggle="dropdown">
-            <div class="avatar-sm bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center me-2">
-              <i class="bi bi-person-fill text-white"></i>
-            </div>
-            <span>{{currentUser.nombreCompleto}}</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><span class="dropdown-item-text text-muted small">{{currentUser.rol}}</span></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Mi Perfil</a></li>
-            <li><a class="dropdown-item text-danger" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
-          </ul>
-        </div>
+  <div class="top-row px-4 d-flex align-items-center">
+    <div class="ms-auto">
+      <div class="dropdown" *ngIf="currentUser">
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-person-circle me-2"></i>
+          <span>{{currentUser.nombre}}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li class="dropdown-item-text">
+            <small class="text-muted">{{currentUser.rol}}</small>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Mi Perfil</a></li>
+          <li><a class="dropdown-item text-danger" (click)="logout()" style="cursor: pointer;"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+        </ul>
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- Main content without sidebar -->
-  <main class="flex-fill bg-light">
+  <!-- Content -->
+  <article class="content px-4">
     <router-outlet></router-outlet>
-  </main>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer text-center py-3 mt-5 border-top">
+    <div class="container">
+      <span class="text-muted">
+        © {{currentYear}} Student Portal – Todos los derechos reservados
+      </span>
+    </div>
+  </footer>
 </div>
 
 <!-- Login layout -->

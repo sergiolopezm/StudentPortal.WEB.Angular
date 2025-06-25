@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 
 import { AuthService } from './core/services/auth.service';
@@ -17,11 +12,7 @@ import { UsuarioPerfilDto } from './models/auth/usuario-perfil.dto';
   imports: [
     CommonModule,
     RouterOutlet,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule
+    RouterModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -29,6 +20,7 @@ import { UsuarioPerfilDto } from './models/auth/usuario-perfil.dto';
 export class AppComponent implements OnInit {
   isAuthenticated = false;
   currentUser: UsuarioPerfilDto | null = null;
+  currentYear = new Date().getFullYear();
 
   constructor(
     private authService: AuthService,
