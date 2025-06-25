@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { EstudianteService } from '../../../core/services/estudiante.service';
 import { EstudianteDto } from '../../../models/academico/estudiante.dto';
+import { NavigationButtonsComponent } from '../../../shared/components/navigation-buttons/navigation-buttons.component'; // 1. IMPORTA EL COMPONENTE (ajusta la ruta si es necesario)
 
 @Component({
   selector: 'app-lista-estudiantes',
@@ -12,7 +13,8 @@ import { EstudianteDto } from '../../../models/academico/estudiante.dto';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NavigationButtonsComponent // 2. AÑADE EL COMPONENTE AQUÍ
   ],
   templateUrl: './lista-estudiantes.component.html',
   styleUrls: ['./lista-estudiantes.component.css']
