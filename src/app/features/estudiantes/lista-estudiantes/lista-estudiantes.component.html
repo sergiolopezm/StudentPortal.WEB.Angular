@@ -1,72 +1,90 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Estudiantes</h1>
-    <a href="/register" class="btn btn-primary">
-      <i class="bi bi-person-plus me-2"></i>Registrar Nuevo Usuario
-    </a>
-  </div>
+<div class="container-fluid py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gray-800 fw-semibold">Estudiantes</h1>
+      <a href="/register" class="btn btn-primary">
+        <i class="bi bi-person-plus me-2"></i>Registrar Nuevo Usuario
+      </a>
+    </div>
 
-  <div class="card">
-    <div class="card-header bg-light">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar estudiantes..." 
-                   [(ngModel)]="searchTerm" 
-                   (keyup)="applyFilter()">
-            <button class="btn btn-outline-secondary" type="button">
-              <i class="bi bi-search"></i> Buscar
-            </button>
+    <div class="card shadow">
+      <div class="card-header bg-light">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control" placeholder="Buscar estudiantes..." 
+                     [(ngModel)]="searchTerm" 
+                     (keyup)="applyFilter()">
+              <button class="btn btn-outline-secondary" type="button" (click)="applyFilter()">
+                <i class="bi bi-search"></i> Buscar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Identificación</th>
-              <th>Email</th>
-              <th>Programa</th>
-              <th>Materias</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let estudiante of dataSource.data" [class]="estudiante.activo ? '' : 'table-danger'">
-              <td>{{estudiante.id}}</td>
-              <td>{{estudiante.nombreCompleto}}</td>
-              <td>{{estudiante.identificacion}}</td>
-              <td>{{estudiante.email}}</td>
-              <td>{{estudiante.programa}}</td>
-              <td>{{estudiante.materiasInscritasCount}} / 3</td>
-              <td>
-                <span class="badge" [class]="estudiante.activo ? 'bg-success' : 'bg-danger'">
-                  {{estudiante.activo ? 'Activo' : 'Inactivo'}}
-                </span>
-              </td>
-              <td>
-                <div class="btn-group" role="group">
-                  <button class="btn btn-sm btn-info" 
-                          (click)="verDetalle(estudiante.id)" 
-                          title="Ver detalles">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                  <button class="btn btn-sm btn-warning" 
-                          (click)="editarEstudiante(estudiante.id)" 
-                          title="Editar estudiante">
-                    <i class="bi bi-pencil"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>IDENTIFICACIÓN</th>
+                <th>EMAIL</th>
+                <th>PROGRAMA</th>
+                <th>MATERIAS</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estudiante of dataSource.data" [class]="estudiante.activo ? '' : 'table-danger'">
+                <td>{{estudiante.id}}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
+                      {{estudiante.nombreCompleto?.charAt(0) || 'E'}}
+                    </div>
+                    {{estudiante.nombreCompleto}}
+                  </div>
+                </td>
+                <td>{{estudiante.identificacion}}</td>
+                <td>{{estudiante.email}}</td>
+                <td>{{estudiante.programa}}</td>
+                <td>
+                  <span class="badge bg-info">{{estudiante.materiasInscritasCount}} / 3</span>
+                </td>
+                <td>
+                  <span class="badge" [class]="estudiante.activo ? 'bg-success' : 'bg-danger'">
+                    {{estudiante.activo ? 'Activo' : 'Inactivo'}}
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-sm btn-info text-white" 
+                            (click)="verDetalle(estudiante.id)" 
+                            title="Ver detalles">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-warning text-white" 
+                            (click)="editarEstudiante(estudiante.id)" 
+                            title="Editar estudiante">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm" 
+                            [class]="estudiante.activo ? 'btn-danger' : 'btn-success'"
+                            (click)="toggleEstudianteActivo(estudiante)" 
+                            title="{{estudiante.activo ? 'Desactivar' : 'Activar'}}">
+                      <i class="bi" [class]="estudiante.activo ? 'bi-toggle-on' : 'bi-toggle-off'"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

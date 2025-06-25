@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -19,6 +19,7 @@ import { EstudianteDto } from '../../../models/academico/estudiante.dto';
 })
 export class ListaEstudiantesComponent implements OnInit {
   dataSource = { data: [] as EstudianteDto[] };
+  allEstudiantes: EstudianteDto[] = [];
   loading = true;
   searchTerm = '';
 
@@ -33,7 +34,8 @@ export class ListaEstudiantesComponent implements OnInit {
     this.estudianteService.getAll().subscribe({
       next: (response) => {
         if (response.exito) {
-          this.dataSource.data = response.resultado || [];
+          this.allEstudiantes = response.resultado || [];
+          this.dataSource.data = this.allEstudiantes;
         }
       },
       error: (error) => console.error('Error loading students:', error),
@@ -42,14 +44,47 @@ export class ListaEstudiantesComponent implements OnInit {
   }
 
   applyFilter(): void {
-    // Implementar filtro si es necesario
+    if (!this.searchTerm.trim()) {
+      this.dataSource.data = this.allEstudiantes;
+      return;
+    }
+
+    const filterValue = this.searchTerm.toLowerCase();
+    this.dataSource.data = this.allEstudiantes.filter(estudiante => 
+      estudiante.nombreCompleto?.toLowerCase().includes(filterValue) ||
+      estudiante.identificacion?.toLowerCase().includes(filterValue) ||
+      estudiante.email?.toLowerCase().includes(filterValue) ||
+      estudiante.programa?.toLowerCase().includes(filterValue)
+    );
   }
 
   verDetalle(id: number): void {
-    // Navegar al detalle del estudiante
+    window.location.href = `/estudiantes/${id}`;
   }
 
   editarEstudiante(id: number): void {
-    // Navegar al formulario de edición
+    window.location.href = `/estudiantes/editar/${id}`;
+  }
+
+  toggleEstudianteActivo(estudiante: EstudianteDto): void {
+    if (confirm(`¿Está seguro que desea ${estudiante.activo ? 'desactivar' : 'activar'} al estudiante ${estudiante.nombreCompleto}?`)) {
+      estudiante.activo = !estudiante.activo;
+      
+      this.estudianteService.update(estudiante.id, estudiante).subscribe({
+        next: (response) => {
+          if (response.exito) {
+            alert(`Estudiante ${estudiante.activo ? 'activado' : 'desactivado'} correctamente`);
+            this.loadEstudiantes();
+          } else {
+            alert('Error al actualizar estudiante: ' + response.mensaje);
+            estudiante.activo = !estudiante.activo;
+          }
+        },
+        error: (error) => {
+          alert('Error al actualizar estudiante');
+          estudiante.activo = !estudiante.activo;
+        }
+      });
+    }
   }
 }

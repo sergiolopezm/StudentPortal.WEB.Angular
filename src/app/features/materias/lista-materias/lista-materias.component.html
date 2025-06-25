@@ -1,55 +1,58 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Materias</h1>
-  </div>
-  
-  <div class="card">
-    <div class="card-header bg-light">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar materias..." 
-                   [(ngModel)]="searchTerm" 
-                   (keyup)="SearchMaterias()">
-            <button class="btn btn-outline-secondary" type="button" (click)="SearchMaterias()">
-              <i class="bi bi-search"></i> Buscar
-            </button>
+<div class="container-fluid py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-gray-800 fw-semibold">Materias</h1>
+    </div>
+    
+    <div class="card shadow">
+      <div class="card-header bg-light">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control" placeholder="Buscar materias..." 
+                     [(ngModel)]="searchTerm" 
+                     (keyup)="SearchMaterias()">
+              <button class="btn btn-outline-secondary" type="button" (click)="SearchMaterias()">
+                <i class="bi bi-search"></i> Buscar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Nombre</th>
-              <th>Créditos</th>
-              <th>Descripción</th>
-              <th>Profesores</th>
-              <th>Inscritos</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let materia of materias">
-              <td>{{materia.codigo}}</td>
-              <td>{{materia.nombre}}</td>
-              <td>{{materia.creditos}}</td>
-              <td>{{ truncar(materia.descripcion) }}</td>
-              <td>
-                <ul class="list-unstyled mb-0" *ngIf="materia.profesores && materia.profesores.length > 0; else noProfesores">
-                  <li *ngFor="let profesor of materia.profesores">{{profesor}}</li>
-                </ul>
-                <ng-template #noProfesores>
-                  <span>Sin profesores asignados</span>
-                </ng-template>
-              </td>
-              <td>{{materia.inscripcionesCount}}</td>
-            </tr>
-          </tbody>
-        </table>
+      
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>CRÉDITOS</th>
+                <th>DESCRIPCIÓN</th>
+                <th>PROFESORES</th>
+                <th>INSCRITOS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let materia of materias">
+                <td>{{materia.codigo}}</td>
+                <td>{{materia.nombre}}</td>
+                <td><span class="badge bg-primary">{{materia.creditos}}</span></td>
+                <td>{{ truncar(materia.descripcion) }}</td>
+                <td>
+                  <ul class="list-unstyled mb-0" *ngIf="materia.profesores && materia.profesores.length > 0; else noProfesores">
+                    <li *ngFor="let profesor of materia.profesores">{{profesor}}</li>
+                  </ul>
+                  <ng-template #noProfesores>
+                    <span class="text-muted">Sin profesores asignados</span>
+                  </ng-template>
+                </td>
+                <td><span class="badge bg-info">{{materia.inscripcionesCount}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
